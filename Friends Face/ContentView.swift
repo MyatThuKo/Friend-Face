@@ -9,8 +9,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var user = User()
+    
     var body: some View {
-        Text("Hello, World!")
+        NavigationView {
+            List {
+                ForEach(user.items) { user in
+                    NavigationLink(destination: DetailView(users: self.user, userInfo: user)) {
+                        UserView(user: user)
+                    }
+                }
+            }
+            .navigationBarTitle("Friends Face")
+        }
     }
 }
 
